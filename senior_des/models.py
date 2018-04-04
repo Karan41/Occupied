@@ -4,7 +4,7 @@ from django.db import models
 
 class Rooms(models.Model):
     room_name = models.CharField(max_length=200)
-    room_number = models.IntegerField(default = '-1')
+    room_number = models.CharField(max_length=10)
     is_occupied = models.BooleanField(default = True)
 
     #prints out the text that wants to be sent

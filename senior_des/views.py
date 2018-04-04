@@ -9,12 +9,16 @@ def room(request):
     for room in rooms:
         #print(room);
         room.text = room
-        temp = room.room_arr()
-        #print(type(temp))
-        #print(temp)
-        #print(rooms)
-    print(type(rooms))
-    args = {'rooms' : rooms }
+        temp = str(room)
+        #print("HIIII ", type(temp))
+        if "not" not in temp:
+            room.isOcc = False
+        else:
+            room.isOcc = True
+        #print(room)
+        
+    #print(type(rooms))
+    args = {'rooms' : rooms}
     return render(request, 'senior_des/room.html', args) 
     
 def home(request):
@@ -50,7 +54,7 @@ def database(request):
 
 
 
-    x = Rooms (room_name=each_info[1], room_number=each_info[2], is_occupied=bool(each_info[3]))
+    x = Rooms (room_name=str(each_info[1]), room_number=str(each_info[2]), is_occupied=bool(each_info[3]))
     r = Rooms.objects.all().filter(room_name=each_info[1]).filter(room_number=each_info[2])
         
     print (type(Rooms.objects.all()))
@@ -68,4 +72,6 @@ def database(request):
     args = {'message' : error_message}
     return render(request, 'senior_des/error.html', args)
 
-
+    def refresh_page(request):
+        for room in Rooms.objects.all():
+            room.delete()

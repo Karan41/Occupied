@@ -1,0 +1,65 @@
+body {
+    background-color: #EEE;
+}
+
+
+#door2 { 
+    outline-color : black;
+    outline-style: solid;
+    color:blue;
+    width: 500px;
+    height: 650px;
+    float: right;
+
+}
+.door2 { 
+    outline-color : black;
+    outline-style: solid;
+    color:blue;
+    width: 500px;
+    height: 650px;
+    float: right;
+
+}
+
+.red2 {
+    position: absolute;
+    width: 200px;
+    height:400px;
+    top: 400px;
+    left: 1015px;
+    background-color: red;
+    
+}
+
+.red2 img {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: auto;
+    left: 0px;
+    background-image: url('../jpg/img_doors.jpg');
+    opacity: 0.2;
+
+}
+
+.green2{
+    position: absolute;
+    width: 200px;
+    height:400px;
+    top: 400px;
+    left: 1015px;
+    background-color: green;
+    
+}
+
+.green2 img {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: auto;
+    left: 0px;
+    background-image: url('../jpg/img_doors.jpg');
+    opacity: 0.2;
+
+}
