@@ -72,6 +72,21 @@ def database(request):
     args = {'message' : error_message}
     return render(request, 'senior_des/error.html', args)
 
-    def refresh_page(request):
-        for room in Rooms.objects.all():
-            room.delete()
+def refresh(request):
+    for room in Rooms.objects.all():
+        room.delete()
+    rooms = Rooms.objects.all()
+    for room in rooms:
+        #print(room);
+        room.text = room
+        temp = str(room)
+        #print("HIIII ", type(temp))
+        if "not" not in temp:
+            room.isOcc = False
+        else:
+            room.isOcc = True
+        #print(room)
+        
+    #print(type(rooms))
+    args = {'rooms' : rooms}
+    return render(request, 'senior_des/room.html', args) 
