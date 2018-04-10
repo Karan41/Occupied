@@ -53,7 +53,7 @@
             }
             function refreshPage() {
                 window.setTimeout(function () {
-                location.href = "http://myurl.com";
+                location.href = "room_page";
                 }, 5000);
             }
         </script>
@@ -93,8 +93,8 @@
             <br />
             <br />
            
-            refreshPage()
-            
+            <script> refreshPage(); </script>
+             
             {% block rooms %} 
                 {% for room in rooms %}
                     
