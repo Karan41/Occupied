@@ -33,9 +33,8 @@ def database(request):
     local_tz = pytz.timezone('America/Chicago')
     localtimestamp = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(local_tz).strftime('%H:%M')
     timeAMPM = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(local_tz).strftime("%I:%M %p")
+    #### COMMENT OUT FAKE TIME
     localtimestamp = fake.time(pattern="%H:%M", end_datetime=None)
-    #ADD TIMESTAMP FOR DISPLAY
-    #print("CURRENT TIME: ", local_dt)
     s = request.META['QUERY_STRING']
 
 
