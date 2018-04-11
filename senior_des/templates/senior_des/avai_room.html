@@ -95,13 +95,9 @@
         <div class="col-md-r">
             <a href=> <h2> Clear the Rooms </h2> </a>
         </div>
-
-        <form action="refresh" method="get" action="">
-            <input type="submit" class="btn" value="Clear the Rooms" name="mybtn">
-        </form>
 -->
 
-        <form action="room_page" method="get" action="">
+        <form action="#" method="get" action="">
             <input type="submit" class="btn" value="Refresh Room Page" name="room_btn">
         </form>
 
@@ -139,24 +135,19 @@
                 {% for room in rooms %}
                     
                     <!-- <div id='pos' class = 'door1' >  -->
+                    {% if room.isOcc %} 
                     <div id='_door1'>
                         <center> {{room}} </center>
-                        {% if room.isOcc %} 
+                        
                             <div id='door' class='green'>
                                 <img src="{% static 'senior_des/roompage/jpg/img_doors.jpg' %}" alt=""/>
                       
                             </div>
-                        {% else %}
-                            <div id='door' class='red'>
-                                <img src="{% static 'senior_des/roompage/jpg/img_doors.jpg' %}" alt=""/>
-                      
-                            </div>
-
-                        {% endif %}
+                        
                     </div>
+                    {% endif %}
 
-
-                   {% endfor %}
+                {% endfor %}
 
             {% endblock %}
 
