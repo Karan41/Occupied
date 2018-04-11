@@ -1,0 +1,76 @@
+body {
+    background-color: #EEE;
+}
+
+#containerRoom {
+
+
+    margin:0 auto;
+    float:left;
+    width :100%; 
+    height: 1000px;
+
+}
+#_door1 { 
+    width: 30%;
+    height: 70%;
+    float: left;
+    margin-left: 125px; 
+    margin-right: 125px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 5px solid;
+
+   
+
+}
+
+
+.door1 { 
+    width: 100%;
+    height: 60%;
+    float:left;
+    border: 15px solid;
+
+   
+
+}
+
+.red {
+
+    width: 50% ;
+    height: 75%;
+    background-color: red;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top: 20%;
+    
+}
+
+.red img {
+    width: 100%;
+    height: 100%;
+
+    background-image: url('../jpg/img_doors.jpg');
+    opacity: 0.2;
+}
+.green{
+    width: 50% ;
+    height: 75%;
+    background-color: green;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20%;
+    
+}
+
+.green img {
+    width: 100%;
+    height: 100%;
+
+    background-image: url('../jpg/img_doors.jpg');
+    opacity: 0.2;
+
+}
+
+
