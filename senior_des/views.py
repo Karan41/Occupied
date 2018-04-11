@@ -30,7 +30,8 @@ def database(request):
     #add to database the request sent
     print('WHATS GOING ON:  ', request)
     local_tz = pytz.timezone('America/Chicago')
-    localtime = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(local_tz).strftime('%H:%M')
+    localtimestamp = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(local_tz).strftime('%H:%M')
+    timeAMPM = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(local_tz).strftime("%I:%M %p")
     #ADD TIMESTAMP FOR DISPLAY
     #print("CURRENT TIME: ", local_dt)
     s = request.META['QUERY_STRING']
@@ -60,8 +61,8 @@ def database(request):
 
 
 
-    x = Rooms (name=str(each_info[1]), timestamp = localtime, is_occupied=bool(each_info[2]))
-    roomTime = RoomTimes(room=str(each_info[1]), time = localtime, occupied=bool(each_info[2]))
+    x = Rooms (name=str(each_info[1]), timestamp = timeAMPM, is_occupied=bool(each_info[2]))
+    roomTime = RoomTimes(room=str(each_info[1]), time = localtimestamp, occupied=bool(each_info[2]))
     roomTime.save()
     print("ROOMTIMES TABLE: ", RoomTimes.objects.all())
     r = Rooms.objects.all().filter(name=each_info[1])
