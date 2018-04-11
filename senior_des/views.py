@@ -24,6 +24,23 @@ def room(request):
     args = {'rooms' : rooms}
     return render(request, 'senior_des/room.html', args)
 
+def avai_room(request):
+    rooms = Rooms.objects.all()
+    for room in rooms:
+        #print(room);
+        room.text = room
+        temp = str(room)
+        #print("HIIII ", type(temp))
+        if "not" not in temp:
+            room.isOcc = False
+        else:
+            room.isOcc = True
+        #print(room)
+
+    #print(type(rooms))
+    args = {'rooms' : rooms}
+    return render(request, 'senior_des/avai_room.html', args)
+
 def home(request):
     return render(request, 'senior_des/homepage/startbootstrap-agency-master/index.html')
 
@@ -85,6 +102,18 @@ def database(request):
     return render(request, 'senior_des/error.html', args)
 
 def refresh(request):
+
+    s = request.META['QUERY_STRING']
+
+
+    print(s)
+    each_info = s.split('+')
+    error_message = {}
+    if (each_info[0] != 'b9c4t5tac1') :
+       error_message = 'BAD USER (in future should lock this user out of website for 5 min)'
+       args = {'message' : error_message}
+       return render(request, 'senior_des/error.html', args)
+
     for room in Rooms.objects.all():
         room.delete()
     rooms = Rooms.objects.all()
@@ -101,4 +130,4 @@ def refresh(request):
 
     #print(type(rooms))
     args = {'rooms' : rooms}
-    return render(request, 'senior_des/room.html', args)
+    return render(request, 'senior_des/error.html', args)
