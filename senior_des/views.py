@@ -1,10 +1,13 @@
 from django.shortcuts import render, HttpResponse
+from django.db.models import Count, Q
 
 from senior_des.models import Rooms, RoomTimes
 import datetime
 import pytz
 from faker import Faker
+import json
 # Create your views here.
+
 fake = Faker()
 
 def room(request):
@@ -14,7 +17,7 @@ def room(request):
         room.text = room
         temp = str(room)
         #print("HIIII ", type(temp))
-        if "not" not in temp:
+        if "empty" not in temp:
             room.isOcc = False
         else:
             room.isOcc = True
@@ -43,6 +46,55 @@ def avai_room(request):
 
 def home(request):
     return render(request, 'senior_des/homepage/startbootstrap-agency-master/index.html')
+
+def time_graphs(request):
+    dataset = RoomTimes.objects \
+        .values('room') \
+        .annotate(occupied_count=Count('room', filter=Q(occupied=True)),
+                  notOccupied_count=Count('room', filter=Q(occupied=False))) \
+        .order_by('room')
+
+    categories = list()
+    occupied_series = list()
+    notOccupied_series = list()
+
+    for entry in dataset:
+        categories.append('%s' % entry['room'])
+        occupied_series.append(entry['occupied_count'])
+        notOccupied_series.append(entry['notOccupied_count'])
+
+    occupied_series = {
+        'name': 'Occupied',
+        'data': occupied_series,
+        'color': 'green'
+    }
+
+    notOccupied_series = {
+        'name': 'Not Occupied',
+        'data': notOccupied_series,
+        'color': 'red'
+    }
+
+    chart = {
+        'chart': {
+            'type': 'column'
+        },
+        'title': {
+            'text': 'Busy Times for these Rooms'
+        },
+        'xAxis': {
+            'categories': categories
+        },
+        'yAxis':{
+            'title': {'text': 'Amount of Times Used'},
+        },
+        'series': [occupied_series, notOccupied_series]
+    }
+
+    dump = json.dumps(chart)
+
+    return render(request, 'senior_des/time_graphs.html', {'chart': dump})
+    # return render(request, 'senior_des/time_graphs.html', {'dataset': dataset})
 
 def database(request):
     #add to database the request sent

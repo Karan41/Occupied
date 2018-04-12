@@ -4,13 +4,13 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         {% load static %}
         <link rel="stylesheet" href="{% static 'senior_des/roompage/css/door1.css' %}" type='text/css'/>
-   <!--     <link rel="stylesheet" href="{% static 'senior_des/roompage/css/door2.css' %}" type='text/css'/> --> 
+   <!--     <link rel="stylesheet" href="{% static 'senior_des/roompage/css/door2.css' %}" type='text/css'/> -->
 <!--
         {% load static %}
         <link rel="stylesheet" href="{% static 'senior_des/style.css'  %}" type="text/css">
 -->
         <script>
-            
+
 
             var counter = 0;
             var list = [];
@@ -18,7 +18,7 @@
             function paintDoor( str ) {
                 var image;
                 //document.write(str);
-                var room_arr = str.split(" ");      
+                var room_arr = str.split(" ");
                 if (room_arr[5] == "not") { //this works
                     image = "red";
                     document.write("red");
@@ -61,7 +61,7 @@
             function myFunction() {
                 document.getElementById("myDropdown").classList.toggle("show");
             }
-            
+
             function refreshNow() {
                 location.reload();
             }
@@ -84,7 +84,7 @@
     <head>
     <body>
 
-        
+
         <center> <h1>Welcome</h1>
         Welcome! The following shows the available rooms.  <br> <br />
         <div class="col-md-4">
@@ -115,9 +115,9 @@
 
         <div id="containerRoom">
 
-       
 
-        
+
+
 <!--            <form action="localhost:8000/">
                 <input type="Home Page" vale="Go to Google" />
             </form>
@@ -128,22 +128,22 @@
 -->
             <br />
             <br />
-           
+
           <!--  <script> refreshPage(); </script> -->
-             
-            {% block rooms %} 
+
+            {% block rooms %}
                 {% for room in rooms %}
-                    
+
                     <!-- <div id='pos' class = 'door1' >  -->
-                    {% if room.isOcc %} 
+                    {% if room.isOcc %}
                     <div id='_door1'>
                         <center> {{room}} </center>
-                        
+
                             <div id='door' class='green'>
                                 <img src="{% static 'senior_des/roompage/jpg/img_doors.jpg' %}" alt=""/>
-                      
+
                             </div>
-                        
+
                     </div>
                     {% endif %}
 
@@ -151,7 +151,7 @@
 
             {% endblock %}
 
-            <br /> 
+            <br />
         </div>
     </body>
 </html>
