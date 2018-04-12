@@ -34,7 +34,7 @@ def avai_room(request):
         room.text = room
         temp = str(room)
         #print("HIIII ", type(temp))
-        if "not" not in temp:
+        if "empty" not in temp:
             room.isOcc = False
         else:
             room.isOcc = True
@@ -174,7 +174,7 @@ def refresh(request):
         room.text = room
         temp = str(room)
         #print("HIIII ", type(temp))
-        if "not" not in temp:
+        if "empty" not in temp:
             room.isOcc = False
         else:
             room.isOcc = True
