@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from django.db.models import Count, Q
+from collections import defaultdict
 
 from senior_des.models import Rooms, RoomTimes
 import datetime
@@ -7,6 +8,10 @@ import pytz
 from faker import Faker
 import json
 # Create your views here.
+
+class RoomInfo:
+    def __init__(self, timeRangeMap):
+        self.timeRangeMap = defaultdict(lambda: 0)
 
 fake = Faker()
 
@@ -48,47 +53,122 @@ def home(request):
     return render(request, 'senior_des/homepage/startbootstrap-agency-master/index.html')
 
 def time_graphs(request):
-    dataset = RoomTimes.objects \
+
+    data = RoomTimes.objects \
         .values('room') \
-        .annotate(occupied_count=Count('room', filter=Q(occupied=True)),
-                  notOccupied_count=Count('room', filter=Q(occupied=False))) \
-        .order_by('room')
+        .annotate(occupied=Count('time', filter=Q(occupied=True))) \
+        .order_by('time')
+
+    dataTime = RoomTimes.objects \
+        .order_by('time') \
+        .values('time') \
 
     categories = list()
-    occupied_series = list()
-    notOccupied_series = list()
+    times = list()
+    occupied = list()
 
-    for entry in dataset:
+    for entry in data:
         categories.append('%s' % entry['room'])
-        occupied_series.append(entry['occupied_count'])
-        notOccupied_series.append(entry['notOccupied_count'])
+        occupied.append(entry['occupied'])
 
-    occupied_series = {
-        'name': 'Occupied',
-        'data': occupied_series,
-        'color': 'green'
-    }
+    for entry in dataTime:
+        times.append('%s' % entry['time'])
 
-    notOccupied_series = {
-        'name': 'Not Occupied',
-        'data': notOccupied_series,
-        'color': 'red'
-    }
+    # print("Room organized by time: ",categories)
+    # print("Times in order: ", times)
+    # print("Occupied: ", occupied)
+
+    ##create a list of these
+        ## room_name
+        ## hashmap time_range [10-11,11-12,.....
+    #no duplicates
+    c = set(categories)
+    c1 = list(c)
+
+    occupiedRooms = defaultdict(lambda: 'nullERROR')
+
+    for entry in c1:
+        occupiedRooms[entry] = defaultdict(lambda: 0)
+
+    for ind in range (0, len(categories)):
+        t = 10
+        roomName = categories[ind]
+        cT = times[ind]
+        currTime = datetime.datetime.strptime(cT, "%H:%M")
+        occupiedNum = occupied[ind]
+        for time in range (10,20):
+            todayTime = datetime.datetime.now().replace(hour=time, minute=0, second=0, microsecond=0).strftime("%H:%M")
+            todayT = datetime.datetime.strptime(todayTime,"%H:%M")
+            if(todayT > currTime):
+                break
+            t = time
+        timeRange = occupiedRooms[roomName]
+        timeRange[t] = timeRange[t] + occupiedNum
+        if occupied[ind] > 1:
+            if ind + occupied[ind]-1 >= len(categories):
+                break
+            else:
+                ind = ind + occupied[ind]-1;
+
+
+    finalTimeRanges = defaultdict(lambda: list())
+
+    for room in c1:
+        roomData = occupiedRooms[room]
+        for time in range (10,20):
+            ftr = finalTimeRanges[time]
+            ftr.append(roomData[time])
+
+    # for entry in finalTimeRanges:
+    #     print("Entry: ",entry)
+    #     print("Value: ", finalTimeRanges[entry])
+
+
 
     chart = {
         'chart': {
-            'type': 'column'
+            'type': 'bar'
         },
         'title': {
-            'text': 'Busy Times for these Rooms'
+            'text': 'Room Occupancy Times through the Week'
         },
         'xAxis': {
-            'categories': categories
+            'categories': c1
         },
         'yAxis':{
-            'title': {'text': 'Amount of Times Used'},
+            'title': {'text': 'Number of times used'},
         },
-        'series': [occupied_series, notOccupied_series]
+        'series': [{
+        'name': '10-11am',
+        'data': finalTimeRanges[10]
+    }, {
+        'name': '11-12pm',
+        'data': finalTimeRanges[11]
+    }, {
+        'name': '12-1pm',
+        'data': finalTimeRanges[12]
+    }, {
+        'name': '1-2pm',
+        'data': finalTimeRanges[13]
+    }, {
+        'name': '2-3pm',
+        'data': finalTimeRanges[14]
+    }, {
+        'name': '3-4pm',
+        'data': finalTimeRanges[15]
+    }, {
+        'name': '4-5pm',
+        'data': finalTimeRanges[16]
+    }, {
+        'name': '5-6pm',
+        'data': finalTimeRanges[17]
+    }, {
+        'name': '6-7pm',
+        'data': finalTimeRanges[18]
+    },{
+        'name': '7-8pm',
+        'data': finalTimeRanges[19]
+    }]
     }
 
     dump = json.dumps(chart)
@@ -102,8 +182,10 @@ def database(request):
     local_tz = pytz.timezone('America/Chicago')
     localtimestamp = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(local_tz).strftime('%H:%M')
     timeAMPM = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(local_tz).strftime("%I:%M %p")
+
     #### COMMENT OUT FAKE TIME
     localtimestamp = fake.time(pattern="%H:%M", end_datetime=None)
+
     s = request.META['QUERY_STRING']
 
 
@@ -133,8 +215,15 @@ def database(request):
 
     x = Rooms (name=str(each_info[1]), timestamp = timeAMPM, is_occupied=bool(each_info[2]))
     roomTime = RoomTimes(room=str(each_info[1]), time = localtimestamp, occupied=bool(each_info[2]))
-    roomTime.save()
-    print("ROOMTIMES TABLE: ", RoomTimes.objects.all())
+
+    ten = datetime.datetime.now().replace(hour=10, minute=0, second=0, microsecond=0).strftime("%H:%M")
+    eight = datetime.datetime.now().replace(hour=20, minute=0, second=0, microsecond=0).strftime("%H:%M")
+    tenAM = datetime.datetime.strptime(ten,"%H:%M")
+    eightPM = datetime.datetime.strptime(eight,"%H:%M")
+    currTime = datetime.datetime.strptime(localtimestamp, "%H:%M")
+    # Only add times between 10am - 8PM in graph! and maybe website??? not sure about that one
+    if(currTime >= tenAM and currTime <= eightPM):
+        roomTime.save()
     r = Rooms.objects.all().filter(name=each_info[1])
 
     print (type(Rooms.objects.all()))
