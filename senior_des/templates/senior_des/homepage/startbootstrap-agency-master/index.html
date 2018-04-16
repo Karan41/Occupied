@@ -131,17 +131,22 @@
                 <input type="submit" class="btn" value="Refresh Home Page" name="room_btn">
             </form>
             <br />
-            <!-- <center> -->
             <form action="/senior_des/time_graphs" method="get" action="">
                 <input type="submit" class="btn" value="Checkout the best times to visit these Rooms!" name="room_btn">
             </form>
-            <!-- <div class="col-md-4">
-                <a href="/senior_des/time_graphs"><h2> Checkout the best times to visit these Rooms! </h2></a>
-            </div> -->
-            <!-- <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3> -->
             <br />
           </div>
         </div>
+        {% if length == 0 %}
+        <center>
+        <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
+        </a>
+        <div class="portfolio-caption">
+        <h4>Unavailable</h4>
+        <p class="text-muted">No Room Data</p>
+        </div>
+        {% endif %}
+        {% if length > 0 %}
         <div class="row">
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
@@ -150,18 +155,6 @@
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-<!--
-              <img class="img-fluid" src="img/portfolio/01-thumbnail.jpg" alt="">
--->
-              {% if length == 0 %}
-              <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
-              </a>
-              <div class="portfolio-caption">
-              <h4>Unavailable</h4>
-              <p class="text-muted">No Room Data</p>
-              </div>
-
-              {% else %}
               {% for room in rooms|slice:"0:1" %}
 
               {% if room.isOcc %}
@@ -181,8 +174,9 @@
               {% endif %}
             </div>
             {% endfor %}
-            {% endif %}
           </div>
+          {% endif %}
+          {% if length > 1 %}
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
               <div class="portfolio-hover">
@@ -190,22 +184,7 @@
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-
-              <!-- {% if length == 0 %}
-              <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
-              {% endif %} -->
-
-            {% if length <= 1 %}
-            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
-            </a>
-            <div class="portfolio-caption">
-            <h4>Unavailable</h4>
-            <p class="text-muted">No Room Data</p>
-            </div>
-
-            {% else %}
             {% for room in rooms|slice:"1:2" %}
-
             {% if room.isOcc %}
             <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/01-thumbnail.jpg' %}" alt="">
             {% else %}
@@ -223,12 +202,9 @@
             {% endif %}
           </div>
           {% endfor %}
-          {% endif %}
-            <!-- <div class="portfolio-caption">
-              <h4>Explore</h4>
-              <p class="text-muted">Graphic Design</p>
-            </div> -->
           </div>
+          {% endif %}
+          {% if length > 2 %}
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
               <div class="portfolio-hover">
@@ -236,19 +212,7 @@
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-              <!-- <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/03-thumbnail.jpg' %}" alt=""> -->
-
-            {% if length <= 2 %}
-            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
-            </a>
-            <div class="portfolio-caption">
-            <h4>Unavailable</h4>
-            <p class="text-muted">No Room Data</p>
-            </div>
-
-            {% else %}
             {% for room in rooms|slice:"2:3" %}
-
             {% if room.isOcc %}
             <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/01-thumbnail.jpg' %}" alt="">
             {% else %}
@@ -266,12 +230,9 @@
             {% endif %}
           </div>
           {% endfor %}
-          {% endif %}
-            <!-- <div class="portfolio-caption">
-              <h4>Finish</h4>
-              <p class="text-muted">Identity</p>
-            </div> -->
           </div>
+          {% endif %}
+          {% if length > 3%}
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
               <div class="portfolio-hover">
@@ -279,19 +240,7 @@
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-              <!-- <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/04-thumbnail.jpg' %}" alt=""> -->
-
-            {% if length <= 3 %}
-            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
-            </a>
-            <div class="portfolio-caption">
-            <h4>Unavailable</h4>
-            <p class="text-muted">No Room Data</p>
-            </div>
-
-            {% else %}
             {% for room in rooms|slice:"3:4" %}
-
             {% if room.isOcc %}
             <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/01-thumbnail.jpg' %}" alt="">
             {% else %}
@@ -309,12 +258,9 @@
             {% endif %}
           </div>
           {% endfor %}
-          {% endif %}
-            <!-- <div class="portfolio-caption">
-              <h4>Lines</h4>
-              <p class="text-muted">Branding</p>
-            </div> -->
           </div>
+          {% endif %}
+          {% if length > 4%}
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
               <div class="portfolio-hover">
@@ -322,17 +268,6 @@
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-              <!-- <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/05-thumbnail.jpg' %}" alt=""> -->
-
-            {% if length <= 4 %}
-            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
-            </a>
-            <div class="portfolio-caption">
-            <h4>Unavailable</h4>
-            <p class="text-muted">No Room Data</p>
-            </div>
-
-            {% else %}
             {% for room in rooms|slice:"4:5" %}
 
             {% if room.isOcc %}
@@ -352,12 +287,9 @@
             {% endif %}
           </div>
           {% endfor %}
-          {% endif %}
-            <!-- <div class="portfolio-caption">
-              <h4>Southwest</h4>
-              <p class="text-muted">Website Design</p>
-            </div> -->
           </div>
+          {% endif %}
+          {% if length > 5%}
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
               <div class="portfolio-hover">
@@ -365,19 +297,7 @@
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-              <!-- <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/06-thumbnail.jpg' %}" alt=""> -->
-
-            {% if length <= 5 %}
-            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
-            </a>
-            <div class="portfolio-caption">
-            <h4>Unavailable</h4>
-            <p class="text-muted">No Room Data</p>
-            </div>
-
-            {% else %}
             {% for room in rooms|slice:"5:6" %}
-
             {% if room.isOcc %}
             <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/01-thumbnail.jpg' %}" alt="">
             {% else %}
@@ -395,12 +315,8 @@
             {% endif %}
           </div>
           {% endfor %}
-          {% endif %}
-            <!-- <div class="portfolio-caption">
-              <h4>Window</h4>
-              <p class="text-muted">Photography</p>
-            </div> -->
           </div>
+          {% endif %}
         </div>
       </div>
     </section>
@@ -493,7 +409,7 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h3 class="section-subheading text-muted">3 Projct Members!</h3>
           </div>
         </div>
         <div class="row">
@@ -612,7 +528,7 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Contact Us</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h3 class="section-subheading text-muted">Leave us a message below!</h3>
           </div>
         </div>
         <div class="row">

@@ -23,9 +23,9 @@ def room(request):
         temp = str(room)
         #print("HIIII ", type(temp))
         if "empty" not in temp:
-            room.isOcc = False
-        else:
             room.isOcc = True
+        else:
+            room.isOcc = False
         #print(room)
 
     #print(type(rooms))
@@ -40,9 +40,9 @@ def avai_room(request):
         temp = str(room)
         #print("HIIII ", type(temp))
         if "empty" not in temp:
-            room.isOcc = False
-        else:
             room.isOcc = True
+        else:
+            room.isOcc = False
         #print(room)
 
     #print(type(rooms))
@@ -57,9 +57,9 @@ def home(request):
         temp = str(room)
         #print("HIIII ", type(temp))
         if "empty" not in temp:
-            room.isOcc = False
-        else:
             room.isOcc = True
+        else:
+            room.isOcc = False
         #print(room)
 
     #print(type(rooms))
@@ -198,7 +198,7 @@ def database(request):
     timeAMPM = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(local_tz).strftime("%I:%M %p")
 
     #### COMMENT OUT FAKE TIME
-    localtimestamp = fake.time(pattern="%H:%M", end_datetime=None)
+    #localtimestamp = fake.time(pattern="%H:%M", end_datetime=None)
 
     s = request.META['QUERY_STRING']
 
@@ -278,9 +278,9 @@ def refresh(request):
         temp = str(room)
         #print("HIIII ", type(temp))
         if "empty" not in temp:
-            room.isOcc = False
-        else:
             room.isOcc = True
+        else:
+            room.isOcc = False
         #print(room)
 
     #print(type(rooms))
