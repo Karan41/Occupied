@@ -50,7 +50,21 @@ def avai_room(request):
     return render(request, 'senior_des/avai_room.html', args)
 
 def home(request):
-    return render(request, 'senior_des/homepage/startbootstrap-agency-master/index.html')
+    rooms = Rooms.objects.all()
+    for room in rooms:
+        #print(room);
+        room.text = room
+        temp = str(room)
+        #print("HIIII ", type(temp))
+        if "empty" not in temp:
+            room.isOcc = False
+        else:
+            room.isOcc = True
+        #print(room)
+
+    #print(type(rooms))
+    args = {'rooms' : rooms}
+    return render(request, 'senior_des/homepage/startbootstrap-agency-master/index.html', args)
 
 def time_graphs(request):
 
