@@ -63,7 +63,7 @@ def home(request):
         #print(room)
 
     #print(type(rooms))
-    args = {'rooms' : rooms}
+    args = {'rooms' : rooms, 'length' : rooms.count()}
     return render(request, 'senior_des/homepage/startbootstrap-agency-master/index.html', args)
 
 def time_graphs(request):
