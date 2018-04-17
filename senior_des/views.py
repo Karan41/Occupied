@@ -152,6 +152,16 @@ def time_graphs(request):
         'yAxis':{
             'title': {'text': 'Number of times used'},
         },
+        'legend': {
+            'layout': 'vertical',
+            'align': 'right',
+            'verticalAlign': 'top',
+            'x': -40,
+            'y': 80,
+            'floating': 'true',
+            'borderWidth': 1,
+            'shadow': 'true'
+    },
         'series': [{
         'name': '10-11am',
         'data': finalTimeRanges[10]
@@ -198,7 +208,7 @@ def database(request):
     timeAMPM = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(local_tz).strftime("%I:%M %p")
 
     #### COMMENT OUT FAKE TIME
-    #localtimestamp = fake.time(pattern="%H:%M", end_datetime=None)
+    localtimestamp = fake.time(pattern="%H:%M", end_datetime=None)
 
     s = request.META['QUERY_STRING']
 
