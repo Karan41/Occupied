@@ -8,11 +8,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Agency - Start Bootstrap Theme</title>
+    <title>Is EER Occupied?</title>
 
     <!-- Bootstrap core CSS -->
     <!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
     {% load static %}
+    
+    <link rel="shortcut icon" href="{% static 'senior_des/homepage/img/favicon/favicon.ico' %}"/>
     <link rel="stylesheet" href="{% static 'senior_des/homepage/vendor/bootstrap/css/bootstrap.min.css' %}">
 
     <!-- Custom fonts for this template -->
@@ -33,7 +35,7 @@
     <!--<link href="css/agency.min.css" rel="stylesheet"> -->
 
     {% load static %}
-    <link rel="stylesheet" href="{% static 'senior_des/homepage/css/agency.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'senior_des/homepage/css/agency.css' %}" >
 
   </head>
 
@@ -42,7 +44,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Room App</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Occupied</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -50,19 +52,13 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+              <a class="nav-link js-scroll-trigger" href="#services">About</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#portfolio">Room Page</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#team">Team</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
             </li>
           </ul>
         </div>
@@ -73,9 +69,9 @@
     <header class="masthead">
       <div class="container">
         <div class="intro-text">
-          <div class="intro-lead-in">Welcome to Our Webpage</div>
-          <div class="intro-heading text-uppercase">hope you find rooms</div>
-          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
+          <div class="intro-lead-in">Welcome to Occupied</div>
+          <div class="intro-heading text-uppercase">Find space in EERC</div>
+          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">About Us</a>
           <br></br>
           <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#portfolio">Room Page</a>
         </div>
@@ -88,33 +84,33 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">our project</h2>
-            <h3 class="section-subheading text-muted">Allows you to see the available rooms in the EER monitored by our Microcontrollers</h3>
+            <h3 class="section-subheading text-muted">Occupied let's you see all the open study rooms at EERC in real-time</h3>
           </div>
         </div>
         <div class="row text-center">
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+              <i class="fa fa-microchip fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">Sensors</h4>
-            <p class="text-muted">We used ____ sensors to be able to sense when people are in the room through body heat. These sensors send a boolean value? that gets read into the Microcontroller.</p>
+            <p class="text-muted">We used thermal sensors to detect whether there's a body present in the room. The mesh network of TI CC1310 microcontrollers communicate via RF and pass all room statuses to the hub. The microcontrollers are running Contiki OS.</p>
+          </div>
+          <div class="col-md-4">
+            <span class="fa-stack fa-4x">
+              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+              <i class="fa fa-arrow-circle-right fa-stack-1x fa-inverse"></i>
+            </span>
+            <h4 class="service-heading">Hub</h4>
+            <p class="text-muted">A TI CC1310 acts as a hub and collects all the RF communication in the mesh network. We use a Raspberry Pi to forward all of this information onto our servers.</p>
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
             </span>
-            <h4 class="service-heading">Microcontroller</h4>
-            <p class="text-muted">We programmed Contiki OS onto all of our Microcontroller except the central hub, which has a Wifi module. All the Microcontrollers with Contiki will send its boolean value? into the central Microcontroller, which will send the information to the wifi via HTTP Post requests.</p>
-          </div>
-          <div class="col-md-4">
-            <span class="fa-stack fa-4x">
-              <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
-            </span>
-            <h4 class="service-heading">Server</h4>
-            <p class="text-muted">Our backend SQLlite from Django will be waiting for POST requests that send information about the room's availability. The database will then update the room availability constantly based on the requests. The frontend will read the results of the database and modify itself, displaying the availability of the rooms</p>
+            <h4 class="service-heading">Cloud</h4>
+            <p class="text-muted">We use Django framework for our website. Data from the sensors is stored in a SQLite database using HTTP requests. We display the current status of rooms and offer some fancy charts to show trends in popular times.</p>
           </div>
         </div>
       </div>
@@ -322,94 +318,14 @@
     </section>
   {% endblock %}
 
-    <!-- About -->
-    <section id="about">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">About</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <ul class="timeline">
-              <li>
-                <div class="timeline-image">
-                  <img class="rounded-circle img-fluid" src="{% static 'senior_des/homepage/img/about/1.jpg' %}" alt="">
-                </div>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h4>2009-2011</h4>
-                    <h4 class="subheading">Our Humble Beginnings</h4>
-                  </div>
-                  <div class="timeline-body">
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                  </div>
-                </div>
-              </li>
-              <li class="timeline-inverted">
-                <div class="timeline-image">
-                  <img class="rounded-circle img-fluid" src="{% static 'senior_des/homepage/img/about/2.jpg' %}" alt="">
-                </div>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h4>March 2011</h4>
-                    <h4 class="subheading">An Agency is Born</h4>
-                  </div>
-                  <div class="timeline-body">
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="timeline-image">
-                  <img class="rounded-circle img-fluid" src="{% static 'senior_des/homepage/img/about/3.jpg' %}" alt="">
-                </div>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h4>December 2012</h4>
-                    <h4 class="subheading">Transition to Full Service</h4>
-                  </div>
-                  <div class="timeline-body">
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                  </div>
-                </div>
-              </li>
-              <li class="timeline-inverted">
-                <div class="timeline-image">
-                  <img class="rounded-circle img-fluid" src="{% static 'senior_des/homepage/img/about/4.jpg' %}" alt="">
-                </div>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h4>July 2014</h4>
-                    <h4 class="subheading">Phase Two Expansion</h4>
-                  </div>
-                  <div class="timeline-body">
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                  </div>
-                </div>
-              </li>
-              <li class="timeline-inverted">
-                <div class="timeline-image">
-                  <h4>Be Part
-                    <br>Of Our
-                    <br>Story!</h4>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+
 
     <!-- Team -->
     <section class="bg-light" id="team">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-            <h3 class="section-subheading text-muted">3 Projct Members!</h3>
+            <h2 class="section-heading text-uppercase">Our Team</h2>
           </div>
         </div>
         <div class="row">
@@ -420,17 +336,12 @@
               <p class="text-muted">Backend Developer</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-twitter"></i>
+                  <a href="https://github.com/Karan41">
+                    <i class="fa fa-github"></i>
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-facebook"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
+                  <a href="https://www.linkedin.com/in/karangujral/">
                     <i class="fa fa-linkedin"></i>
                   </a>
                 </li>
@@ -439,22 +350,52 @@
           </div>
           <div class="col-sm-4">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="{% static 'senior_des/homepage/img/team/Kevin.jpg' %}" alt="">
-              <h4>Kevin Wong</h4>
-              <p class="text-muted">Sensor Development</p>
+              <img class="mx-auto rounded-circle" src="{% static 'senior_des/homepage/img/team/Zohaib.jpg' %}" alt="">
+              <h4>Zohaib Imam</h4>
+              <p class="text-muted">Backend Development</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-twitter"></i>
+                  <a href="https://github.com/iamzoh">
+                    <i class="fa fa-github"></i>
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-facebook"></i>
+                  <a href="https://www.linkedin.com/in/iamzoh/">
+                    <i class="fa fa-linkedin"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="team-member">
+              <img class="mx-auto rounded-circle" src="{% static 'senior_des/homepage/img/team/Justin.jpg' %}" alt="">
+              <h4>Justin Liang</h4>
+              <p class="text-muted">Frontend Development</p>
+              <ul class="list-inline social-buttons">
+                <li class="list-inline-item">
+                  <a href="https://github.com/jliang919">
+                    <i class="fa fa-github"></i>
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a href="#">
+                  <a href="https://www.linkedin.com/in/justin-liang-546453100/">
+                    <i class="fa fa-linkedin"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="team-member">
+              <img class="mx-auto rounded-circle" src="{% static 'senior_des/homepage/img/team/Dung.jpg' %}" alt="">
+              <h4>Dung Nguyen</h4>
+              <p class="text-muted">Sensor Development</p>
+              <ul class="list-inline social-buttons">               
+                <li class="list-inline-item">
+                  <a href="https://www.linkedin.com/in/dung-nguyen-a20064144/">
                     <i class="fa fa-linkedin"></i>
                   </a>
                 </li>
@@ -467,18 +408,17 @@
               <h4>Nick White</h4>
               <p class="text-muted">Wifi Module Handler</p>
               <ul class="list-inline social-buttons">
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="team-member">
+              <img class="mx-auto rounded-circle" src="{% static 'senior_des/homepage/img/team/Kevin.jpg' %}" alt="">
+              <h4>Kevin Wong</h4>
+              <p class="text-muted">Sensor Development</p>
+              <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-twitter"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-facebook"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
+                  <a href="https://www.linkedin.com/in/kevin-wong-330b93107/">
                     <i class="fa fa-linkedin"></i>
                   </a>
                 </li>
@@ -488,35 +428,7 @@
         </div>
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Clients -->
-    <section class="py-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3 col-sm-6">
-            <a href="#">
-              <img class="img-fluid d-block mx-auto" src="{% static 'senior_des/homepage/img/logos/envato.jpg' %}" alt="">
-            </a>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <a href="#">
-              <img class="img-fluid d-block mx-auto" src="{% static 'senior_des/homepage/img/logos/designmodo.jpg' %}" alt="">
-            </a>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <a href="#">
-              <img class="img-fluid d-block mx-auto" src="{% static 'senior_des/homepage/img/logos/themeforest.jpg' %}" alt="">
-            </a>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <a href="#">
-              <img class="img-fluid d-block mx-auto" src="{% static 'senior_des/homepage/img/logos/creative-market.jpg' %}" alt="">
-            </a>
+            <p class="large text-muted">A very special thank you to Texas Instruments, Andreas Gerstlauer, and Ahsen Dinc for helping with Occupied.</p>
           </div>
         </div>
       </div>
@@ -528,7 +440,7 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Contact Us</h2>
-            <h3 class="section-subheading text-muted">Leave us a message below!</h3>
+            <h3 class="section-subheading text-muted">Leave us any suggestions below!</h3>
           </div>
         </div>
         <div class="row">
@@ -572,34 +484,14 @@
       <div class="container">
         <div class="row">
           <div class="col-md-4">
-            <span class="copyright">Copyright &copy; Your Website 2018</span>
+            <span class="copyright"> </span>
           </div>
           <div class="col-md-4">
             <ul class="list-inline social-buttons">
               <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-twitter"></i>
+                <a href="https://github.com/Karan41/Occupied">
+                  <i class="fa fa-github"></i>
                 </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-facebook"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-linkedin"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <ul class="list-inline quicklinks">
-              <li class="list-inline-item">
-                <a href="#">Privacy Policy</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Terms of Use</a>
               </li>
             </ul>
           </div>
