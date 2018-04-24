@@ -36,6 +36,9 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'senior_des/homepage/css/agency.css' %}" >
+    
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src = "https://code.highcharts.com/highcharts.js"></script>
 
   </head>
 
@@ -56,6 +59,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#portfolio">Room Page</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#populartimes">Popular Times</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#team">Team</a>
@@ -123,14 +129,6 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Room Page</h2>
-            <form action="home_page" method="get" action="">
-                <input type="submit" class="btn" value="Refresh Home Page" name="room_btn">
-            </form>
-            <br />
-            <form action="/senior_des/time_graphs" method="get" action="">
-                <input type="submit" class="btn" value="Checkout the best times to visit these Rooms!" name="room_btn">
-            </form>
-            <br />
           </div>
         </div>
         {% if length == 0 %}
@@ -317,6 +315,21 @@
       </div>
     </section>
   {% endblock %}
+  
+  
+   <!-- Popular Times -->
+    <section class="py-5" id="populartimes">
+     <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Popular Times</h2>
+          </div>
+        </div>
+      <div id="times" style="width:1000px; margin:0 auto;"></div>
+	  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+	  <script>
+		Highcharts.chart('times', {{chart|safe}});
+	  </script>   
+    </section>
 
 
 
