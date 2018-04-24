@@ -63,10 +63,12 @@ def home(request):
         #print(room)
 
     #print(type(rooms))
-    args = {'rooms' : rooms, 'length' : rooms.count()}
+    chart = time_graphs()
+    dump = json.dumps(chart)
+    args = {'rooms' : rooms, 'length' : rooms.count(), 'chart':dump}
     return render(request, 'senior_des/homepage/startbootstrap-agency-master/index.html', args)
 
-def time_graphs(request):
+def time_graphs():
 
     data = RoomTimes.objects \
         .values('room') \
@@ -162,20 +164,20 @@ def time_graphs(request):
 
     chart = {
         'chart': {
-            'type': 'column'
+            'type': 'spline'
         },
         'title': {
-            'text': 'Room Occupancy Times through the Week'
+            'text': ''
         },
         'xAxis': {
-            'title': {'text': 'Times throughout the Week'},
+            'title': {'text': 'Time'},
             'categories': timeSet
         },
         'yAxis':{
-            'title': {'text': 'Number of times used'}
+            'title': {'text': 'Frequency'}
         },
         'legend': {
-            'title': {'text': 'Room Names'},
+            'title': {'text': 'Rooms'},
             'layout': 'vertical',
             'align': 'right',
             'verticalAlign': 'top',
@@ -184,13 +186,22 @@ def time_graphs(request):
             'floating': 'true',
             'borderWidth': 1,
             'shadow': 'true'
-    },
+    	},
+    	'plotOptions': {
+    		'spline': {
+    			'marker': {
+    				'enabled': 'true'
+    			}
+    		}
+    	},
         'series': seriesData
     }
 
-    dump = json.dumps(chart)
+    #dump = json.dumps(chart)
 
-    return render(request, 'senior_des/time_graphs.html', {'chart': dump})
+    return chart
+    #return render(request, 'senior_des/homepage/startbootstrap-agency-master/index.html', {'chart': dump})
+    #return render(request, 'senior_des/time_graphs.html', {'chart': dump})
     # return render(request, 'senior_des/time_graphs.html', {'dataset': dataset})
 
 def database(request):
