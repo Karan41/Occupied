@@ -126,33 +126,56 @@ def time_graphs(request):
 
 
     finalTimeRanges = defaultdict(lambda: list())
+    roomTime = defaultdict(lambda: list())
 
     for room in c1:
         roomData = occupiedRooms[room]
+        r = roomTime[room]
         for time in range (10,20):
             ftr = finalTimeRanges[time]
             ftr.append(roomData[time])
+            r.append(roomData[time])
 
-    # for entry in finalTimeRanges:
-    #     print("Entry: ",entry)
-    #     print("Value: ", finalTimeRanges[entry])
+    timeSet = list()
+    for time in range (10,20):
+        tempT = time
+        tempT1 = time+1
+        amPM = "AM"
+        if(tempT >= 12):
+            amPM = "PM"
+        if(tempT > 12):
+            tempT = tempT-12
+        if(tempT1 > 12):
+            tempT1 = tempT1-12
+        string = str(tempT) + "-" + str(tempT1) + amPM
+        timeSet.append(string)
 
+    roomdata = {}
+    seriesData = []
 
+    for key in roomTime:
+        roomdata = {
+            'name' : key,
+            'data' : roomTime[key]
+        }
+        seriesData.append(roomdata)
 
     chart = {
         'chart': {
-            'type': 'bar'
+            'type': 'column'
         },
         'title': {
             'text': 'Room Occupancy Times through the Week'
         },
         'xAxis': {
-            'categories': c1
+            'title': {'text': 'Times throughout the Week'},
+            'categories': timeSet
         },
         'yAxis':{
-            'title': {'text': 'Number of times used'},
+            'title': {'text': 'Number of times used'}
         },
         'legend': {
+            'title': {'text': 'Room Names'},
             'layout': 'vertical',
             'align': 'right',
             'verticalAlign': 'top',
@@ -162,37 +185,7 @@ def time_graphs(request):
             'borderWidth': 1,
             'shadow': 'true'
     },
-        'series': [{
-        'name': '10-11am',
-        'data': finalTimeRanges[10]
-    }, {
-        'name': '11-12pm',
-        'data': finalTimeRanges[11]
-    }, {
-        'name': '12-1pm',
-        'data': finalTimeRanges[12]
-    }, {
-        'name': '1-2pm',
-        'data': finalTimeRanges[13]
-    }, {
-        'name': '2-3pm',
-        'data': finalTimeRanges[14]
-    }, {
-        'name': '3-4pm',
-        'data': finalTimeRanges[15]
-    }, {
-        'name': '4-5pm',
-        'data': finalTimeRanges[16]
-    }, {
-        'name': '5-6pm',
-        'data': finalTimeRanges[17]
-    }, {
-        'name': '6-7pm',
-        'data': finalTimeRanges[18]
-    },{
-        'name': '7-8pm',
-        'data': finalTimeRanges[19]
-    }]
+        'series': seriesData
     }
 
     dump = json.dumps(chart)
