@@ -23,9 +23,9 @@ def room(request):
         temp = str(room)
         #print("HIIII ", type(temp))
         if "empty" not in temp:
-            room.isOcc = False
-        else:
             room.isOcc = True
+        else:
+            room.isOcc = False
         #print(room)
 
     #print(type(rooms))
@@ -40,9 +40,9 @@ def avai_room(request):
         temp = str(room)
         #print("HIIII ", type(temp))
         if "empty" not in temp:
-            room.isOcc = False
-        else:
             room.isOcc = True
+        else:
+            room.isOcc = False
         #print(room)
 
     #print(type(rooms))
@@ -50,9 +50,25 @@ def avai_room(request):
     return render(request, 'senior_des/avai_room.html', args)
 
 def home(request):
-    return render(request, 'senior_des/homepage/startbootstrap-agency-master/index.html')
+    rooms = Rooms.objects.all()
+    for room in rooms:
+        #print(room);
+        room.text = room
+        temp = str(room)
+        #print("HIIII ", type(temp))
+        if "empty" not in temp:
+            room.isOcc = True
+        else:
+            room.isOcc = False
+        #print(room)
 
-def time_graphs(request):
+    #print(type(rooms))
+    chart = time_graphs()
+    dump = json.dumps(chart)
+    args = {'rooms' : rooms, 'length' : rooms.count(), 'chart':dump}
+    return render(request, 'senior_des/homepage/startbootstrap-agency-master/index.html', args)
+
+def time_graphs():
 
     data = RoomTimes.objects \
         .values('room') \
@@ -112,68 +128,80 @@ def time_graphs(request):
 
 
     finalTimeRanges = defaultdict(lambda: list())
+    roomTime = defaultdict(lambda: list())
 
     for room in c1:
         roomData = occupiedRooms[room]
+        r = roomTime[room]
         for time in range (10,20):
             ftr = finalTimeRanges[time]
             ftr.append(roomData[time])
+            r.append(roomData[time])
 
-    # for entry in finalTimeRanges:
-    #     print("Entry: ",entry)
-    #     print("Value: ", finalTimeRanges[entry])
+    timeSet = list()
+    for time in range (10,20):
+        tempT = time
+        tempT1 = time+1
+        amPM = "AM"
+        if(tempT >= 12):
+            amPM = "PM"
+        if(tempT > 12):
+            tempT = tempT-12
+        if(tempT1 > 12):
+            tempT1 = tempT1-12
+        string = str(tempT) + "-" + str(tempT1) + amPM
+        timeSet.append(string)
 
+    roomdata = {}
+    seriesData = []
 
+    for key in roomTime:
+        roomdata = {
+            'name' : key,
+            'data' : roomTime[key]
+        }
+        seriesData.append(roomdata)
 
     chart = {
         'chart': {
-            'type': 'bar'
+            'type': 'spline'
         },
         'title': {
-            'text': 'Room Occupancy Times through the Week'
+            'text': ''
         },
         'xAxis': {
-            'categories': c1
+            'title': {'text': 'Time'},
+            'categories': timeSet
         },
         'yAxis':{
-            'title': {'text': 'Number of times used'},
+            'title': {'text': 'Frequency'}
         },
-        'series': [{
-        'name': '10-11am',
-        'data': finalTimeRanges[10]
-    }, {
-        'name': '11-12pm',
-        'data': finalTimeRanges[11]
-    }, {
-        'name': '12-1pm',
-        'data': finalTimeRanges[12]
-    }, {
-        'name': '1-2pm',
-        'data': finalTimeRanges[13]
-    }, {
-        'name': '2-3pm',
-        'data': finalTimeRanges[14]
-    }, {
-        'name': '3-4pm',
-        'data': finalTimeRanges[15]
-    }, {
-        'name': '4-5pm',
-        'data': finalTimeRanges[16]
-    }, {
-        'name': '5-6pm',
-        'data': finalTimeRanges[17]
-    }, {
-        'name': '6-7pm',
-        'data': finalTimeRanges[18]
-    },{
-        'name': '7-8pm',
-        'data': finalTimeRanges[19]
-    }]
+        'legend': {
+            'title': {'text': 'Rooms'},
+            'layout': 'vertical',
+            'align': 'right',
+            'verticalAlign': 'top',
+            'x': -40,
+            'y': 80,
+            'floating': 'true',
+            'borderWidth': 1,
+            'shadow': 'true'
+    	},
+    	'plotOptions': {
+    		'spline': {
+    			'marker': {
+    				'enabled': 'true'
+    			}
+    		}
+    	},
+        'series': seriesData
     }
 
-    dump = json.dumps(chart)
+    #dump = json.dumps(chart)
 
-    return render(request, 'senior_des/time_graphs.html', {'chart': dump})
+    return chart
+    #return render(request, 'senior_des/homepage/startbootstrap-agency-master/index.html', {'chart': dump})
+    #return render(request, 'senior_des/time_graphs.html', {'chart': dump})
     # return render(request, 'senior_des/time_graphs.html', {'dataset': dataset})
 
 def database(request):
@@ -184,7 +212,7 @@ def database(request):
     timeAMPM = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(local_tz).strftime("%I:%M %p")
 
     #### COMMENT OUT FAKE TIME
-    localtimestamp = fake.time(pattern="%H:%M", end_datetime=None)
+    #localtimestamp = fake.time(pattern="%H:%M", end_datetime=None)
 
     s = request.META['QUERY_STRING']
 
@@ -264,9 +292,9 @@ def refresh(request):
         temp = str(room)
         #print("HIIII ", type(temp))
         if "empty" not in temp:
-            room.isOcc = False
-        else:
             room.isOcc = True
+        else:
+            room.isOcc = False
         #print(room)
 
     #print(type(rooms))

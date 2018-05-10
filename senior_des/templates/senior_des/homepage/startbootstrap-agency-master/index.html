@@ -8,11 +8,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Agency - Start Bootstrap Theme</title>
+    <title>Is EER Occupied?</title>
 
     <!-- Bootstrap core CSS -->
     <!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
-    {% load static %} 
+    {% load static %}
+
+    <link rel="shortcut icon" href="{% static 'senior_des/homepage/img/favicon/favicon.ico' %}"/>
     <link rel="stylesheet" href="{% static 'senior_des/homepage/vendor/bootstrap/css/bootstrap.min.css' %}">
 
     <!-- Custom fonts for this template -->
@@ -23,8 +25,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 
-    
-    
+
+
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
@@ -32,8 +34,11 @@
     <!-- Custom styles for this template -->
     <!--<link href="css/agency.min.css" rel="stylesheet"> -->
 
-    {% load static %} 
-    <link rel="stylesheet" href="{% static 'senior_des/homepage/css/agency.min.css' %}" >
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'senior_des/homepage/css/agency.css' %}" >
+
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src = "https://code.highcharts.com/highcharts.js"></script>
 
   </head>
 
@@ -42,7 +47,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Room App</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Occupied</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -50,19 +55,16 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+              <a class="nav-link js-scroll-trigger" href="#services">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+              <a class="nav-link js-scroll-trigger" href="#portfolio">Rooms</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+              <a class="nav-link js-scroll-trigger" href="#populartimes">Popular Times</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#team">Team</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
             </li>
           </ul>
         </div>
@@ -73,11 +75,11 @@
     <header class="masthead">
       <div class="container">
         <div class="intro-text">
-          <div class="intro-lead-in">Welcome to Our Webpage</div>
-          <div class="intro-heading text-uppercase">hope you find rooms</div>
-          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
+          <div class="intro-lead-in">Welcome to Occupied</div>
+          <div class="intro-heading text-uppercase">Find space in EERC</div>
+          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">About Us</a>
           <br></br>
-          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/senior_des/room_page">Room Page</a>
+          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#portfolio">Rooms</a>
         </div>
       </div>
     </header>
@@ -88,47 +90,57 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">our project</h2>
-            <h3 class="section-subheading text-muted">Allows you to see the available rooms in the EER monitored by our Microcontrollers</h3>
+            <h3 class="section-subheading text-muted">Occupied let's you see all the open study rooms at EERC in real-time</h3>
           </div>
         </div>
         <div class="row text-center">
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+              <i class="fa fa-microchip fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">Sensors</h4>
-            <p class="text-muted">We used ____ sensors to be able to sense when people are in the room through body heat. These sensors send a boolean value? that gets read into the Microcontroller.</p>
+            <p class="text-muted">We used thermal sensors to detect whether there's a body present in the room. The mesh network of TI CC1310 microcontrollers communicate via RF and pass all room statuses to the hub. The microcontrollers are running Contiki OS.</p>
+          </div>
+          <div class="col-md-4">
+            <span class="fa-stack fa-4x">
+              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+              <i class="fa fa-arrow-circle-right fa-stack-1x fa-inverse"></i>
+            </span>
+            <h4 class="service-heading">Hub</h4>
+            <p class="text-muted">A TI CC1310 acts as a hub and collects all the RF communication in the mesh network. We use a Raspberry Pi to forward all of this information onto our servers.</p>
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
             </span>
-            <h4 class="service-heading">Microcontroller</h4>
-            <p class="text-muted">We programmed Contiki OS onto all of our Microcontroller except the central hub, which has a Wifi module. All the Microcontrollers with Contiki will send its boolean value? into the central Microcontroller, which will send the information to the wifi via HTTP Post requests.</p>
-          </div>
-          <div class="col-md-4">
-            <span class="fa-stack fa-4x">
-              <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
-            </span>
-            <h4 class="service-heading">Server</h4>
-            <p class="text-muted">Our backend SQLlite from Django will be waiting for POST requests that send information about the room's availability. The database will then update the room availability constantly based on the requests. The frontend will read the results of the database and modify itself, displaying the availability of the rooms</p>
+            <h4 class="service-heading">Cloud</h4>
+            <p class="text-muted">We use Django framework for our website. Data from the sensors is stored in a SQLite database using HTTP requests. We display the current status of rooms and offer some fancy charts to show trends in popular times.</p>
           </div>
         </div>
       </div>
     </section>
 
+   {% block rooms %}
     <!-- Portfolio Grid -->
     <section class="bg-light" id="portfolio">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Portfolio</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h2 class="section-heading text-uppercase">Rooms</h2>
           </div>
         </div>
+        {% if length == 0 %}
+        <center>
+        <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
+        </a>
+        <div class="portfolio-caption">
+        <h4>Unavailable</h4>
+        <p class="text-muted">No Room Data</p>
+        </div>
+        {% endif %}
+        {% if length > 0 %}
         <div class="row">
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
@@ -137,16 +149,28 @@
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-<!--
-              <img class="img-fluid" src="img/portfolio/01-thumbnail.jpg" alt="">
--->
+              {% for room in rooms|slice:"0:1" %}
+
+              {% if room.isOcc %}
               <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/01-thumbnail.jpg' %}" alt="">
+              {% else %}
+              <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
+              {% endif %}
+
             </a>
             <div class="portfolio-caption">
-              <h4>Threads</h4>
-              <p class="text-muted">Illustration</p>
+
+              <h4>{{room.name}}</h4>
+              {% if room.isOcc %}
+              <p class="text-muted">Is occupied at time {{room.timestamp}}</p>
+              {% else %}
+              <p class="text-muted">Is empty at time {{room.timestamp}}</p>
+              {% endif %}
             </div>
+            {% endfor %}
           </div>
+          {% endif %}
+          {% if length > 1 %}
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
               <div class="portfolio-hover">
@@ -154,13 +178,27 @@
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Explore</h4>
-              <p class="text-muted">Graphic Design</p>
-            </div>
+            {% for room in rooms|slice:"1:2" %}
+            {% if room.isOcc %}
+            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/01-thumbnail.jpg' %}" alt="">
+            {% else %}
+            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
+            {% endif %}
+
+          </a>
+          <div class="portfolio-caption">
+
+            <h4>{{room.name}}</h4>
+            {% if room.isOcc %}
+            <p class="text-muted">Is occupied at time {{room.timestamp}}</p>
+            {% else %}
+            <p class="text-muted">Is empty at time {{room.timestamp}}</p>
+            {% endif %}
           </div>
+          {% endfor %}
+          </div>
+          {% endif %}
+          {% if length > 2 %}
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
               <div class="portfolio-hover">
@@ -168,13 +206,27 @@
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/03-thumbnail.jpg' %}" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Finish</h4>
-              <p class="text-muted">Identity</p>
-            </div>
+            {% for room in rooms|slice:"2:3" %}
+            {% if room.isOcc %}
+            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/01-thumbnail.jpg' %}" alt="">
+            {% else %}
+            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
+            {% endif %}
+
+          </a>
+          <div class="portfolio-caption">
+
+            <h4>{{room.name}}</h4>
+            {% if room.isOcc %}
+            <p class="text-muted">Is occupied at time {{room.timestamp}}</p>
+            {% else %}
+            <p class="text-muted">Is empty at time {{room.timestamp}}</p>
+            {% endif %}
           </div>
+          {% endfor %}
+          </div>
+          {% endif %}
+          {% if length > 3%}
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
               <div class="portfolio-hover">
@@ -182,13 +234,27 @@
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/04-thumbnail.jpg' %}" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Lines</h4>
-              <p class="text-muted">Branding</p>
-            </div>
+            {% for room in rooms|slice:"3:4" %}
+            {% if room.isOcc %}
+            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/01-thumbnail.jpg' %}" alt="">
+            {% else %}
+            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
+            {% endif %}
+
+          </a>
+          <div class="portfolio-caption">
+
+            <h4>{{room.name}}</h4>
+            {% if room.isOcc %}
+            <p class="text-muted">Is occupied at time {{room.timestamp}}</p>
+            {% else %}
+            <p class="text-muted">Is empty at time {{room.timestamp}}</p>
+            {% endif %}
           </div>
+          {% endfor %}
+          </div>
+          {% endif %}
+          {% if length > 4%}
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
               <div class="portfolio-hover">
@@ -196,13 +262,28 @@
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/05-thumbnail.jpg' %}" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Southwest</h4>
-              <p class="text-muted">Website Design</p>
-            </div>
+            {% for room in rooms|slice:"4:5" %}
+
+            {% if room.isOcc %}
+            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/01-thumbnail.jpg' %}" alt="">
+            {% else %}
+            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
+            {% endif %}
+
+          </a>
+          <div class="portfolio-caption">
+
+            <h4>{{room.name}}</h4>
+            {% if room.isOcc %}
+            <p class="text-muted">Is occupied at time {{room.timestamp}}</p>
+            {% else %}
+            <p class="text-muted">Is empty at time {{room.timestamp}}</p>
+            {% endif %}
           </div>
+          {% endfor %}
+          </div>
+          {% endif %}
+          {% if length > 5%}
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
               <div class="portfolio-hover">
@@ -210,126 +291,70 @@
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/06-thumbnail.jpg' %}" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Window</h4>
-              <p class="text-muted">Photography</p>
-            </div>
+            {% for room in rooms|slice:"5:6" %}
+            {% if room.isOcc %}
+            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/01-thumbnail.jpg' %}" alt="">
+            {% else %}
+            <img class="img-fluid" src="{% static 'senior_des/homepage/img/portfolio/02-thumbnail.jpg' %}" alt="">
+            {% endif %}
+
+          </a>
+          <div class="portfolio-caption">
+
+            <h4>{{room.name}}</h4>
+            {% if room.isOcc %}
+            <p class="text-muted">Is occupied at time {{room.timestamp}}</p>
+            {% else %}
+            <p class="text-muted">Is empty at time {{room.timestamp}}</p>
+            {% endif %}
           </div>
+          {% endfor %}
+          </div>
+          {% endif %}
         </div>
       </div>
+    </section>
+  {% endblock %}
+
+
+   <!-- Popular Times -->
+    <section class="py-5" id="populartimes">
+     <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Popular Times</h2>
+          </div>
+        </div>
+      <div id="times" style="width:1000px; margin:0 auto;"></div>
+	  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+	  <script>
+		Highcharts.chart('times', {{chart|safe}});
+	  </script>
     </section>
 
-    <!-- About -->
-    <section id="about">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">About</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <ul class="timeline">
-              <li>
-                <div class="timeline-image">
-                  <img class="rounded-circle img-fluid" src="img/about/1.jpg" alt="">
-                </div>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h4>2009-2011</h4>
-                    <h4 class="subheading">Our Humble Beginnings</h4>
-                  </div>
-                  <div class="timeline-body">
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                  </div>
-                </div>
-              </li>
-              <li class="timeline-inverted">
-                <div class="timeline-image">
-                  <img class="rounded-circle img-fluid" src="img/about/2.jpg" alt="">
-                </div>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h4>March 2011</h4>
-                    <h4 class="subheading">An Agency is Born</h4>
-                  </div>
-                  <div class="timeline-body">
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="timeline-image">
-                  <img class="rounded-circle img-fluid" src="img/about/3.jpg" alt="">
-                </div>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h4>December 2012</h4>
-                    <h4 class="subheading">Transition to Full Service</h4>
-                  </div>
-                  <div class="timeline-body">
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                  </div>
-                </div>
-              </li>
-              <li class="timeline-inverted">
-                <div class="timeline-image">
-                  <img class="rounded-circle img-fluid" src="img/about/4.jpg" alt="">
-                </div>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h4>July 2014</h4>
-                    <h4 class="subheading">Phase Two Expansion</h4>
-                  </div>
-                  <div class="timeline-body">
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                  </div>
-                </div>
-              </li>
-              <li class="timeline-inverted">
-                <div class="timeline-image">
-                  <h4>Be Part
-                    <br>Of Our
-                    <br>Story!</h4>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+
 
     <!-- Team -->
     <section class="bg-light" id="team">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h2 class="section-heading text-uppercase">Our Team</h2>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-4">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="{% static 'senior_des/homepage/img/about/karan.jpg' %}" alt="">
-              <h4>Karan Jujural</h4>
+              <img class="mx-auto rounded-circle" src="{% static 'senior_des/homepage/img/team/Karan.jpg' %}" alt="">
+              <h4>Karan Gujral</h4>
               <p class="text-muted">Backend Developer</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-twitter"></i>
+                  <a href="https://github.com/Karan41">
+                    <i class="fa fa-github"></i>
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-facebook"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
+                  <a href="https://www.linkedin.com/in/karangujral/">
                     <i class="fa fa-linkedin"></i>
                   </a>
                 </li>
@@ -338,22 +363,52 @@
           </div>
           <div class="col-sm-4">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="{% static 'senior_des/homepage/img/about/Kevin.jpg' %}" alt="">
-              <h4>Kevin Wong</h4>
+              <img class="mx-auto rounded-circle" src="{% static 'senior_des/homepage/img/team/Zohaib.jpg' %}" alt="">
+              <h4>Zohaib Imam</h4>
+              <p class="text-muted">Full stack developer</p>
+              <ul class="list-inline social-buttons">
+                <li class="list-inline-item">
+                  <a href="https://github.com/iamzoh">
+                    <i class="fa fa-github"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.linkedin.com/in/iamzoh/">
+                    <i class="fa fa-linkedin"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="team-member">
+              <img class="mx-auto rounded-circle" src="{% static 'senior_des/homepage/img/team/Justin.jpg' %}" alt="">
+              <h4>Justin Liang</h4>
+              <p class="text-muted">Frontend Development</p>
+              <ul class="list-inline social-buttons">
+                <li class="list-inline-item">
+                  <a href="https://github.com/jliang919">
+                    <i class="fa fa-github"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.linkedin.com/in/justin-liang-546453100/">
+                    <i class="fa fa-linkedin"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="team-member">
+              <img class="mx-auto rounded-circle" src="{% static 'senior_des/homepage/img/team/Dung.jpg' %}" alt="">
+              <h4>Dung Nguyen</h4>
               <p class="text-muted">Sensor Development</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-twitter"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-facebook"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
+                  <a href="https://www.linkedin.com/in/dung-nguyen-a20064144/">
                     <i class="fa fa-linkedin"></i>
                   </a>
                 </li>
@@ -362,22 +417,36 @@
           </div>
           <div class="col-sm-4">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="{% static 'senior_des/homepage/img/about/Nick.jpg' %}" alt="">
+              <img class="mx-auto rounded-circle" src="{% static 'senior_des/homepage/img/team/Nick.jpg' %}" alt="">
               <h4>Nick White</h4>
-              <p class="text-muted">Wifi Module Handler</p>
+              <p class="text-muted">Central Hub Developer</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-twitter"></i>
+                  <a href="https://github.com/whitenick">
+                    <i class="fa fa-github"></i>
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-facebook"></i>
+                  <a href="https://www.linkedin.com/in/nick-white-a4ba63110/">
+                    <i class="fa fa-linkedin"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="team-member">
+              <img class="mx-auto rounded-circle" src="{% static 'senior_des/homepage/img/team/Kevin.jpg' %}" alt="">
+              <h4>Kevin Wong</h4>
+              <p class="text-muted">Sensor Development</p>
+              <ul class="list-inline social-buttons">
+                 <li class="list-inline-item">
+                  <a href="https://github.com/kevinwong94">
+                    <i class="fa fa-github"></i>
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a href="#">
+                  <a href="https://www.linkedin.com/in/kevin-wong-330b93107/">
                     <i class="fa fa-linkedin"></i>
                   </a>
                 </li>
@@ -387,35 +456,7 @@
         </div>
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Clients -->
-    <section class="py-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3 col-sm-6">
-            <a href="#">
-              <img class="img-fluid d-block mx-auto" src="img/logos/envato.jpg" alt="">
-            </a>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <a href="#">
-              <img class="img-fluid d-block mx-auto" src="img/logos/designmodo.jpg" alt="">
-            </a>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <a href="#">
-              <img class="img-fluid d-block mx-auto" src="img/logos/themeforest.jpg" alt="">
-            </a>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <a href="#">
-              <img class="img-fluid d-block mx-auto" src="img/logos/creative-market.jpg" alt="">
-            </a>
+            <p class="large text-muted">A very special thank you to Texas Instruments, Andreas Gerstlauer, and Ahsen Dinc for helping with Occupied.</p>
           </div>
         </div>
       </div>
@@ -427,7 +468,7 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Contact Us</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h3 class="section-subheading text-muted">Leave us any suggestions below!</h3>
           </div>
         </div>
         <div class="row">
@@ -471,34 +512,14 @@
       <div class="container">
         <div class="row">
           <div class="col-md-4">
-            <span class="copyright">Copyright &copy; Your Website 2018</span>
+            <span class="copyright"> </span>
           </div>
           <div class="col-md-4">
             <ul class="list-inline social-buttons">
               <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-twitter"></i>
+                <a href="https://github.com/Karan41/Occupied">
+                  <i class="fa fa-github"></i>
                 </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-facebook"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-linkedin"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <ul class="list-inline quicklinks">
-              <li class="list-inline-item">
-                <a href="#">Privacy Policy</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Terms of Use</a>
               </li>
             </ul>
           </div>
@@ -509,6 +530,8 @@
     <!-- Portfolio Modals -->
 
     <!-- Modal 1 -->
+    {% block room %}
+      {% for room in rooms|slice:"0:1" %}
     <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -522,18 +545,22 @@
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Project Name</h2>
-                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                  <img class="img-fluid d-block mx-auto" src="img/portfolio/01-full.jpg" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <h2 class="text-uppercase">{{room.name}}</h2>
+                  <p class="item-intro text-muted">Description if needed</p>
+                  <img class="img-fluid d-block mx-auto" src="{% static 'senior_des/homepage/img/portfolio/01-full.jpg' %}" alt="">
+                  <p>Use this area to describe your classroom if needed</p>
                   <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Threads</li>
-                    <li>Category: Illustration</li>
+                    <li>Time: {{room.timestamp}}</li>
+                    <li>Classroom: {{room.name}}</li>
+                    {% if room.isOcc %}
+                    <li>Occupied?: Yes</li>
+                    {% else %}
+                    <li>Occupied?: No</li>
+                    {% endif %}
                   </ul>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
                     <i class="fa fa-times"></i>
-                    Close Project</button>
+                    Close</button>
                 </div>
               </div>
             </div>
@@ -541,7 +568,9 @@
         </div>
       </div>
     </div>
+    {% endfor %}
 
+    {% for room in rooms|slice:"1:2" %}
     <!-- Modal 2 -->
     <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
@@ -556,18 +585,22 @@
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Project Name</h2>
-                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                  <img class="img-fluid d-block mx-auto" src="img/portfolio/02-full.jpg" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <h2 class="text-uppercase">{{room.name}}</h2>
+                  <p class="item-intro text-muted">Description if needed</p>
+                  <img class="img-fluid d-block mx-auto" src="{% static 'senior_des/homepage/img/portfolio/01-full.jpg' %}" alt="">
+                  <p>Use this area to describe your classroom if needed</p>
                   <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Explore</li>
-                    <li>Category: Graphic Design</li>
+                    <li>Time: {{room.timestamp}}</li>
+                    <li>Classroom: {{room.name}}</li>
+                    {% if room.isOcc %}
+                    <li>Occupied?: Yes</li>
+                    {% else %}
+                    <li>Occupied?: No</li>
+                    {% endif %}
                   </ul>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
                     <i class="fa fa-times"></i>
-                    Close Project</button>
+                    Close</button>
                 </div>
               </div>
             </div>
@@ -575,7 +608,9 @@
         </div>
       </div>
     </div>
+    {% endfor %}
 
+    {% for room in rooms|slice:"2:3" %}
     <!-- Modal 3 -->
     <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
@@ -590,18 +625,22 @@
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Project Name</h2>
-                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                  <img class="img-fluid d-block mx-auto" src="img/portfolio/03-full.jpg" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <h2 class="text-uppercase">{{room.name}}</h2>
+                  <p class="item-intro text-muted">Description if needed</p>
+                  <img class="img-fluid d-block mx-auto" src="{% static 'senior_des/homepage/img/portfolio/01-full.jpg' %}" alt="">
+                  <p>Use this area to describe your classroom if needed</p>
                   <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Finish</li>
-                    <li>Category: Identity</li>
+                    <li>Time: {{room.timestamp}}</li>
+                    <li>Classroom: {{room.name}}</li>
+                    {% if room.isOcc %}
+                    <li>Occupied?: Yes</li>
+                    {% else %}
+                    <li>Occupied?: No</li>
+                    {% endif %}
                   </ul>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
                     <i class="fa fa-times"></i>
-                    Close Project</button>
+                    Close</button>
                 </div>
               </div>
             </div>
@@ -609,7 +648,9 @@
         </div>
       </div>
     </div>
+    {% endfor %}
 
+    {% for room in rooms|slice:"3:4" %}
     <!-- Modal 4 -->
     <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
@@ -624,18 +665,22 @@
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Project Name</h2>
-                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                  <img class="img-fluid d-block mx-auto" src="img/portfolio/04-full.jpg" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <h2 class="text-uppercase">{{room.name}}</h2>
+                  <p class="item-intro text-muted">Description if needed</p>
+                  <img class="img-fluid d-block mx-auto" src="{% static 'senior_des/homepage/img/portfolio/01-full.jpg' %}" alt="">
+                  <p>Use this area to describe your classroom if needed</p>
                   <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Lines</li>
-                    <li>Category: Branding</li>
+                    <li>Time: {{room.timestamp}}</li>
+                    <li>Classroom: {{room.name}}</li>
+                    {% if room.isOcc %}
+                    <li>Occupied?: Yes</li>
+                    {% else %}
+                    <li>Occupied?: No</li>
+                    {% endif %}
                   </ul>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
                     <i class="fa fa-times"></i>
-                    Close Project</button>
+                    Close</button>
                 </div>
               </div>
             </div>
@@ -643,7 +688,9 @@
         </div>
       </div>
     </div>
+    {% endfor %}
 
+    {% for room in rooms|slice:"4:5" %}
     <!-- Modal 5 -->
     <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
@@ -658,18 +705,22 @@
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Project Name</h2>
-                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                  <img class="img-fluid d-block mx-auto" src="img/portfolio/05-full.jpg" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <h2 class="text-uppercase">{{room.name}}</h2>
+                  <p class="item-intro text-muted">Description if needed</p>
+                  <img class="img-fluid d-block mx-auto" src="{% static 'senior_des/homepage/img/portfolio/01-full.jpg' %}" alt="">
+                  <p>Use this area to describe your classroom if needed</p>
                   <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Southwest</li>
-                    <li>Category: Website Design</li>
+                    <li>Time: {{room.timestamp}}</li>
+                    <li>Classroom: {{room.name}}</li>
+                    {% if room.isOcc %}
+                    <li>Occupied?: Yes</li>
+                    {% else %}
+                    <li>Occupied?: No</li>
+                    {% endif %}
                   </ul>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
                     <i class="fa fa-times"></i>
-                    Close Project</button>
+                    Close</button>
                 </div>
               </div>
             </div>
@@ -677,7 +728,9 @@
         </div>
       </div>
     </div>
+    {% endfor %}
 
+    {% for room in rooms|slice:"5:6" %}
     <!-- Modal 6 -->
     <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
@@ -692,18 +745,22 @@
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Project Name</h2>
-                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                  <img class="img-fluid d-block mx-auto" src="img/portfolio/06-full.jpg" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <h2 class="text-uppercase">{{room.name}}</h2>
+                  <p class="item-intro text-muted">Description if needed</p>
+                  <img class="img-fluid d-block mx-auto" src="{% static 'senior_des/homepage/img/portfolio/01-full.jpg' %}" alt="">
+                  <p>Use this area to describe your classroom if needed</p>
                   <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Window</li>
-                    <li>Category: Photography</li>
+                    <li>Time: {{room.timestamp}}</li>
+                    <li>Classroom: {{room.name}}</li>
+                    {% if room.isOcc %}
+                    <li>Occupied?: Yes</li>
+                    {% else %}
+                    <li>Occupied?: No</li>
+                    {% endif %}
                   </ul>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
                     <i class="fa fa-times"></i>
-                    Close Project</button>
+                    Close</button>
                 </div>
               </div>
             </div>
@@ -711,6 +768,19 @@
         </div>
       </div>
     </div>
+    {% endfor %}
+  {% endblock %}
+
+    <script>
+      function refreshPage() {
+          window.setTimeout(function () {
+          location.href = "https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css";
+          }, 5000);
+      }
+      function refreshNow() {
+          location.reload();
+      }
+    </script>
 
     <!-- Bootstrap core JavaScript -->
     <script src="{% static 'senior_des/homepage/vendor/jquery/jquery.min.js' %}"></script>
